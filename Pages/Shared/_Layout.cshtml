@@ -37,28 +37,30 @@
 
 <footer class="border-top footer text-muted">
     <div class="container d-flex">
-        <ul class="d-flex list-unstyled flex-column">
-            <li class="nav-item">
-                <a class="nav-link" asp-page="/Home">Home</a>
+        <ul class="footer-container-list">
+            <li>
+                <a asp-page="/Home">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-page="/Blog">Blog</a>
+            <li>
+                <a asp-page="/Blog">Blog</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-page="/Contact">Contact</a>
+            <li>
+                <a asp-page="/Contact">Contact</a>
             </li>
         </ul>
-        <ul class="d-flex list-unstyled flex-column">
-            <li class="nav-item">
-                <a class="nav-link" href="https://github.com/PhilBroderick">GitHub</a>
+        <ul class="footer-container-list">
+            <li>
+                <a href="https://github.com/PhilBroderick">GitHub</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="https://www.linkedin.com/in/phil-broderick-ba0b49142/">LinkedIn</a>
+            <li>
+                <a href="https://www.linkedin.com/in/phil-broderick-ba0b49142/">LinkedIn</a>
             </li>
         </ul>
     </div>
-    <div class="container">
-        &copy; 2020 - Phil Broderick
+    <div class="container d-flex justify-content-center">
+        <p>&copy; @DateTime.Now.Year -
+        <a asp-page="/Home">Phil Broderick.</a>
+        Made with @System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription</p>
     </div>
 </footer>
 
