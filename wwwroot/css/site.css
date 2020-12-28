@@ -85,5 +85,17 @@ body {
   padding: 5px;
 }
 
+.contact-input {
+  background-color: #f3f3f3;
+  border: none;
+  padding: 10px;
+  outline: none;
+  transition: background-color 500ms linear;
+}
+
+.contact-input:focus {
+  background-color: #ededfb;
+}
+
 
 
