@@ -8,15 +8,17 @@ using SendGrid.Helpers.Mail;
 
 namespace Portfolio.Core.Services
 {
-    public class EmailerService : IMessageService
+    public class EmailService : IMessageService
     {
         private readonly IConfiguration _configuration;
         private readonly SendGridClient _client;
-        public EmailerService(IConfiguration configuration)
+        
+        public EmailService(IConfiguration configuration)
         {
             _configuration = configuration;
             _client = new SendGridClient(_configuration.GetValue<string>("SendGridAPIKey"));
         }
+        
         public async Task<IServiceResult<bool>> SendMessageAsync(string message, string from, string[] recipients)
         {
             var fromAddress = new EmailAddress(_configuration.GetValue<string>("ContactFromAddress"), "Website Enquiry");
