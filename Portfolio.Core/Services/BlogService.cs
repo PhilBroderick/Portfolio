@@ -19,5 +19,16 @@ namespace Portfolio.Core.Services
         {
             return (await _blogRepository.GetBlogs(numOfBlogs)).OrderByDescending(b => b.Created);
         }
+
+        public async Task<BlogItem> CreateNewBlog(CreateBlogRequest createBlogRequest)
+        {
+            var (title, content) = createBlogRequest;
+            
+            if (string.IsNullOrWhiteSpace(title) ||
+                string.IsNullOrWhiteSpace(content))
+                return null;
+
+            return await _blogRepository.CreateNewBlog(title, content);
+        }
     }
 }

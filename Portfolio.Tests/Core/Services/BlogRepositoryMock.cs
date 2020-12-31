@@ -14,6 +14,17 @@ namespace Portfolio.Tests.Core.Services
             return Task.FromResult(GetAllBlogs(numOfBlogs));
         }
 
+        public Task<BlogItem> CreateNewBlog(string title, string content)
+        {
+            return Task.FromResult(new BlogItem
+            {
+                Id =  Guid.NewGuid(),
+                Title = title,
+                Content = content,
+                Created = DateTime.Now
+            });
+        }
+
         private IEnumerable<BlogItem> GetAllBlogs(int numOfBlogs)
         {
             var start = new DateTime(2000, 1, 1);
