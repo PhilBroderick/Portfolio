@@ -7,5 +7,6 @@ namespace Portfolio.Core.Interfaces
     public interface IBlogRepository
     {
         Task<IEnumerable<BlogItem>> GetBlogs(int numOfBlogs);
+        Task<BlogItem> CreateNewBlog(string title, string content);
     }
 }
