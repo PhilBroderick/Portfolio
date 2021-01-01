@@ -20,7 +20,7 @@ namespace Portfolio.Data.Repositories
                 result.Add(new BlogItem
                 {
                     Created = start.AddDays(rng.Next(range)),
-                    Title = $"Title: {i + 1}"
+                    Title = $"Title-{i + 1}"
                 });
             }
 
@@ -30,6 +30,16 @@ namespace Portfolio.Data.Repositories
         public Task<BlogItem> CreateNewBlog(string title, string content)
         {
             throw new System.NotImplementedException();
+        }
+
+        public Task<BlogItem> GetBlogByTitle(string title)
+        {
+            return Task.FromResult(new BlogItem
+            {
+                Title = title,
+                Created = DateTime.Now,
+                Content = "This is a bunch of <b>content</b>"
+            });
         }
     }
 }

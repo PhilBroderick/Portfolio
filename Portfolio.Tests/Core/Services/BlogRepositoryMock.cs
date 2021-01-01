@@ -25,6 +25,19 @@ namespace Portfolio.Tests.Core.Services
             });
         }
 
+        public Task<BlogItem> GetBlogByTitle(string title)
+        {
+            if (string.IsNullOrWhiteSpace(title) || title == "invalid title")
+                return Task.FromResult<BlogItem>(null);
+            return Task.FromResult(new BlogItem
+            {
+                Id = Guid.NewGuid(),
+                Title = title,
+                Content = "content",
+                Created = DateTime.Now
+            });
+        }
+
         private IEnumerable<BlogItem> GetAllBlogs(int numOfBlogs)
         {
             var start = new DateTime(2000, 1, 1);

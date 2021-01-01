@@ -9,5 +9,7 @@ namespace Portfolio.Core.Interfaces
         Task<IEnumerable<BlogItem>> GetMostRecentBlogs(int numOfBlogs);
 
         Task<BlogItem> CreateNewBlog(CreateBlogRequest createBlogRequest);
+
+        Task<BlogItem> GetBlogByTitle(string title);
     }
 }

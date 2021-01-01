@@ -8,5 +8,6 @@ namespace Portfolio.Core.Interfaces
     {
         Task<IEnumerable<BlogItem>> GetBlogs(int numOfBlogs);
         Task<BlogItem> CreateNewBlog(string title, string content);
+        Task<BlogItem> GetBlogByTitle(string title);
     }
 }
