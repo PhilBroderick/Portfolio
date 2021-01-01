@@ -30,5 +30,10 @@ namespace Portfolio.Core.Services
 
             return await _blogRepository.CreateNewBlog(title, content);
         }
+
+        public async Task<BlogItem> GetBlogByTitle(string title)
+        {
+            return await _blogRepository.GetBlogByTitle(title);
+        }
     }
 }

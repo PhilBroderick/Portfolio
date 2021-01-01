@@ -40,11 +40,42 @@ namespace Portfolio.Tests.Core.Services
         }
 
         [Fact]
-        public async void CreatBlog_InvalidCreateBlogRequest_ReturnsNull()
+        public async void CreateBlog_InvalidCreateBlogRequest_ReturnsNull()
         {
             var createBlogRequest = new CreateBlogRequest("", "");
 
             var result = await _blogService.CreateNewBlog(createBlogRequest);
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async void GetBlogByTitle_ValidTitle_ReturnsBlogItem()
+        {
+            const string title = "Valid Title";
+
+            var result = await _blogService.GetBlogByTitle(title);
+            
+            Assert.Equal(title, result.Title);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public async void GetBlogByTitle_NullOrEmptyTitle_ReturnsNull(string title)
+        {
+            var result = await _blogService.GetBlogByTitle(title);
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async void GetBlogByTitle_InvalidTitle_ReturnsNull()
+        {
+            const string invalidTitle = "invalid title";
+
+            var result = await _blogService.GetBlogByTitle(invalidTitle);
 
             Assert.Null(result);
         }
