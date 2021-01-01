@@ -98,5 +98,17 @@ body {
   background-color: #ededfb;
 }
 
+.blog-list {
+  list-style: none;
+}
+
+.w-15 {
+  width: 15%;
+}
+
+.w-85 {
+  width: 85%;
+}
+
 
 

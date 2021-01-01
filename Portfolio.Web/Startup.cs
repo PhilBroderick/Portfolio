@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Portfolio.Core.Interfaces;
 using Portfolio.Core.Services;
+using Portfolio.Data.Repositories;
 
 namespace Portfolio
 {
@@ -26,6 +27,8 @@ namespace Portfolio
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IMessageService, EmailService>();
+            services.AddScoped<IBlogService, BlogService>();
+            services.AddScoped<IBlogRepository, BlogRepository>();
             services.AddRazorPages();
         }
 
