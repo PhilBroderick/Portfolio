@@ -63,6 +63,18 @@ html {
   min-height: 100%;
 }
 
+h1 {
+  margin-bottom: 20px;
+}
+
+.w-15 {
+  width: 15%;
+}
+
+.w-85 {
+  width: 85%;
+}
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
@@ -96,6 +108,18 @@ body {
 
 .contact-input:focus {
   background-color: #ededfb;
+}
+
+.blog-list {
+  list-style: none;
+}
+
+.blog-list>li {
+  padding: 15px;
+}
+
+.blog-list-header>a {
+  color: black;
 }
 
 
