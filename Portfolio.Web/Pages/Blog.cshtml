@@ -17,7 +17,9 @@
                     <div class="d-flex">
                         <p class="w-15">@blog.Created.Date.ToString("dd-MM-yyyy")</p>
                         <div class="d-flex flex-column w-85">
-                            <h2>@blog.Title</h2>
+                            <h2 class="blog-list-header">
+                                <a asp-page="/Blog" asp-route-title="@blog.Title">@blog.Title</a>
+                            </h2>
                             <p>First few paragraphs</p>
                         </div>
                     </div>
@@ -33,6 +35,10 @@
 else
 {
     <h1>@Model.CurrentBlog.Title</h1>
+    <div>
+        <p>@Model.CurrentBlog.Created.ToLongDateString()</p>
+        @Html.Raw(Model.CurrentBlog.Content)
+    </div>
 }
 
 

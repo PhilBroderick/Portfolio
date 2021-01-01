@@ -34,7 +34,12 @@ namespace Portfolio.Data.Repositories
 
         public Task<BlogItem> GetBlogByTitle(string title)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(new BlogItem
+            {
+                Title = title,
+                Created = DateTime.Now,
+                Content = "This is a bunch of <b>content</b>"
+            });
         }
     }
 }
