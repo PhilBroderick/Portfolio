@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Portfolio.Core.Interfaces;
+using Portfolio.Core.Interfaces.Repositories;
+using Portfolio.Core.Interfaces.Services;
 using Portfolio.Core.ServiceModels;
 
 namespace Portfolio.Core.Services

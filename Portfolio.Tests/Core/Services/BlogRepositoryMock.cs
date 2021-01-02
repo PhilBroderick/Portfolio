@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Portfolio.Core.Interfaces;
+using Portfolio.Core.Interfaces.Repositories;
 using Portfolio.Core.ServiceModels;
 
 namespace Portfolio.Tests.Core.Services

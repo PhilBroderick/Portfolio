@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Portfolio.Core.Interfaces;
+using Portfolio.Core.Interfaces.Repositories;
+using Portfolio.Core.Interfaces.Services;
 using Portfolio.Core.Services;
 using Portfolio.Data.Repositories;
 

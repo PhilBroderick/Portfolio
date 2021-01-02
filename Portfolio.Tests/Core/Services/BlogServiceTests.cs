@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Portfolio.Core.Interfaces;
+using Portfolio.Core.Interfaces.Repositories;
 using Portfolio.Core.ServiceModels;
 using Portfolio.Core.Services;
 using Xunit;

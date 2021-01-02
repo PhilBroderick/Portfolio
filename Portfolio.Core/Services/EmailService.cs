@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Portfolio.Core.Interfaces;
+using Portfolio.Core.Interfaces.Services;
 using Portfolio.Core.ServiceResults;
 using SendGrid;
 using SendGrid.Helpers.Mail;

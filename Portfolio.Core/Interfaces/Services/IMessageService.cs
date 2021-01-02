@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Portfolio.Core.Interfaces
+namespace Portfolio.Core.Interfaces.Services
 {
     public interface IMessageService
     {
