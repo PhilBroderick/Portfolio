@@ -4,6 +4,7 @@
     {
         string GetAllBlogs { get; }
         string GetMostRecentBlogs { get; }
+        string GetBlogByTitle { get; }
         string CreateBlog { get; }
     }
 }

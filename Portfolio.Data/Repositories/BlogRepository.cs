@@ -25,12 +25,10 @@ namespace Portfolio.Data.Repositories
         {
             try
             {
-                await using (var connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
-                    var query = await connection.QueryAsync<BlogItem>(_commandText.GetAllBlogs);
-                    return query;
-                }
+                await using var connection = new SqlConnection(_connectionString);
+                await connection.OpenAsync();
+                var query = await connection.QueryAsync<BlogItem>(_commandText.GetAllBlogs);
+                return query;
             }
             catch (TimeoutException ex)
             {
@@ -63,14 +61,19 @@ namespace Portfolio.Data.Repositories
             throw new System.NotImplementedException();
         }
 
-        public Task<BlogItem> GetBlogByTitle(string title)
+        public async Task<BlogItem> GetBlogByTitle(string title)
         {
-            return Task.FromResult(new BlogItem
+            try
             {
-                Title = title,
-                Created = DateTime.Now,
-                Content = "This is a bunch of <b>content</b>"
-            });
+                await using var connection = new SqlConnection(_connectionString);
+                var query = await connection.QueryFirstOrDefaultAsync<BlogItem>(_commandText.GetBlogByTitle,
+                    new {Title = title});
+                return query;
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
         }
     }
 }
