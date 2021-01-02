@@ -21,59 +21,29 @@ namespace Portfolio.Data.Repositories
             _commandText = commandText;
             _connectionString = config.GetConnectionString("DefaultConnection");
         }
+        
         public async Task<IEnumerable<BlogItem>> GetBlogs(int numOfBlogs)
         {
-            try
-            {
-                await using var connection = new SqlConnection(_connectionString);
-                await connection.OpenAsync();
-                var query = await connection.QueryAsync<BlogItem>(_commandText.GetAllBlogs);
-                return query;
-            }
-            catch (TimeoutException ex)
-            {
-                throw;
-            }
-            catch (SqlException ex)
-            {
-                throw;
-            }
-            
-            // stubbed out data until persistence implemented
-            var result = new List<BlogItem>();
-            var start = new DateTime(2000, 1, 1);
-            var rng = new Random(Guid.NewGuid().GetHashCode());
-            var range = (DateTime.Today - start).Days;
-            for (int i = 0; i < numOfBlogs; i++)
-            {
-                result.Add(new BlogItem
-                {
-                    Created = start.AddDays(rng.Next(range)),
-                    Title = $"Title-{i + 1}"
-                });
-            }
-
-            return result;
+            await using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+            var query = await connection.QueryAsync<BlogItem>(_commandText.GetAllBlogs);
+            return query;
         }
 
-        public Task<BlogItem> CreateNewBlog(string title, string content)
+        public async Task CreateNewBlog(string title, string content)
         {
-            throw new System.NotImplementedException();
+            var newId = Guid.NewGuid();
+            await using var connection = new SqlConnection(_connectionString);
+            await connection.ExecuteAsync(_commandText.CreateBlog,
+                new {Id = newId, Title = title, Content = content});
         }
 
         public async Task<BlogItem> GetBlogByTitle(string title)
         {
-            try
-            {
-                await using var connection = new SqlConnection(_connectionString);
-                var query = await connection.QueryFirstOrDefaultAsync<BlogItem>(_commandText.GetBlogByTitle,
-                    new {Title = title});
-                return query;
-            }
-            catch (SqlException ex)
-            {
-                throw;
-            }
+            await using var connection = new SqlConnection(_connectionString);
+            var query = await connection.QueryFirstOrDefaultAsync<BlogItem>(_commandText.GetBlogByTitle,
+                new {Title = title});
+            return query;
         }
     }
 }

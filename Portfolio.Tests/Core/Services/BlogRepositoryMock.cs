@@ -14,7 +14,7 @@ namespace Portfolio.Tests.Core.Services
             return Task.FromResult(GetAllBlogs(numOfBlogs));
         }
 
-        public Task<BlogItem> CreateNewBlog(string title, string content)
+        public Task CreateNewBlog(string title, string content)
         {
             return Task.FromResult(new BlogItem
             {
