@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Portfolio.Configuration;
-using Portfolio.Core.Interfaces;
+using Portfolio.Core.Interfaces.Services;
 using Portfolio.Models;
 
 namespace Portfolio.Pages

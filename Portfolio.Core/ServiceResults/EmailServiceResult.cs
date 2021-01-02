@@ -1,5 +1,5 @@
 ﻿using System;
-using Portfolio.Core.Interfaces;
+using Portfolio.Core.Interfaces.Services;
 
 namespace Portfolio.Core.ServiceResults
 {

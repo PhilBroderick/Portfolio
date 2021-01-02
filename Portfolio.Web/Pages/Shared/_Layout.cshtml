@@ -19,7 +19,7 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1 justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Blog">Blog</a>
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Blog" asp-route-title="">Blog</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-page="/Contact">Contact</a>
@@ -35,14 +35,14 @@
     </main>
 </div>
 
-<footer class="border-top text-muted">
+<footer class="border-top footer text-muted">
     <div class="container d-flex">
         <ul class="footer-container-list">
             <li>
                 <a asp-page="/Home">Home</a>
             </li>
             <li>
-                <a asp-page="/Blog">Blog</a>
+                <a asp-page="/Blog" asp-route-title="">Blog</a>
             </li>
             <li>
                 <a asp-page="/Contact">Contact</a>

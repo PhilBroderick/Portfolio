@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Portfolio.Core.Interfaces
+namespace Portfolio.Core.Interfaces.Services
 {
     public interface IServiceResult<T>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Portfolio.Core.Interfaces;
+using Portfolio.Core.Interfaces.Repositories;
 using Portfolio.Core.ServiceModels;
 using Portfolio.Core.Services;
 using Xunit;
@@ -29,24 +29,23 @@ namespace Portfolio.Tests.Core.Services
         }
 
         [Fact]
-        public async void CreateBlog_ValidCreateBlogRequest_ReturnsNewBlogItem()
+        public async void CreateBlog_ValidCreateBlogRequest_ReturnsTrue()
         {
             var createBlogRequest = new CreateBlogRequest("New blog title", "New blog content");
 
             var result = await _blogService.CreateNewBlog(createBlogRequest);
             
-            Assert.Equal(createBlogRequest.Title, result.Title);
-            Assert.Equal(DateTime.Now.Date, result.Created.Date);
+            Assert.True(result);
         }
 
         [Fact]
-        public async void CreateBlog_InvalidCreateBlogRequest_ReturnsNull()
+        public async void CreateBlog_InvalidCreateBlogRequest_ReturnsFalse()
         {
             var createBlogRequest = new CreateBlogRequest("", "");
 
             var result = await _blogService.CreateNewBlog(createBlogRequest);
 
-            Assert.Null(result);
+            Assert.False(result);
         }
 
         [Fact]

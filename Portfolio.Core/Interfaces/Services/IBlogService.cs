@@ -2,13 +2,13 @@
 using System.Threading.Tasks;
 using Portfolio.Core.ServiceModels;
 
-namespace Portfolio.Core.Interfaces
+namespace Portfolio.Core.Interfaces.Services
 {
     public interface IBlogService
     {
         Task<IEnumerable<BlogItem>> GetMostRecentBlogs(int numOfBlogs);
 
-        Task<BlogItem> CreateNewBlog(CreateBlogRequest createBlogRequest);
+        Task<bool> CreateNewBlog(CreateBlogRequest createBlogRequest);
 
         Task<BlogItem> GetBlogByTitle(string title);
     }
