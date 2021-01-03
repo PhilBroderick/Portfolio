@@ -6,7 +6,7 @@ using Portfolio.Core.ServiceModels;
 using Portfolio.Core.Services;
 using Xunit;
 
-namespace Portfolio.Tests.Core.Services
+namespace Portfolio.Tests.Core.Services.Blog
 {
     public class BlogServiceTests
     {
@@ -14,7 +14,7 @@ namespace Portfolio.Tests.Core.Services
 
         public BlogServiceTests()
         {
-            IBlogRepository blogRepository = new BlogRepositoryMock();
+            IBlogRepository blogRepository = new BlogRepositoryFake();
             _blogService = new BlogService(blogRepository);
         }
         
