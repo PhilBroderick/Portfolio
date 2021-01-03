@@ -30,12 +30,12 @@ namespace Portfolio.Data.Repositories
             return query;
         }
 
-        public async Task CreateNewBlog(string title, string content)
+        public async Task CreateNewBlog(string title, string content, string description)
         {
             var newId = Guid.NewGuid();
             await using var connection = new SqlConnection(_connectionString);
             await connection.ExecuteAsync(_commandText.CreateBlog,
-                new {Id = newId, Title = title, Content = content});
+                new {Id = newId, Title = title, Content = content, Description = description});
         }
 
         public async Task<BlogItem> GetBlogByTitle(string title)

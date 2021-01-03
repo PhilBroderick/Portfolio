@@ -24,15 +24,16 @@ namespace Portfolio.Core.Services
 
         public async Task<bool> CreateNewBlog(CreateBlogRequest createBlogRequest)
         {
-            var (title, content) = createBlogRequest;
+            var (title, content, description) = createBlogRequest;
             
             if (string.IsNullOrWhiteSpace(title) ||
-                string.IsNullOrWhiteSpace(content))
+                string.IsNullOrWhiteSpace(content) ||
+                string.IsNullOrWhiteSpace(description))
                 return false;
 
             try
             {
-                await _blogRepository.CreateNewBlog(title, content);
+                await _blogRepository.CreateNewBlog(title, content, description);
                 return true;
             }
             catch (Exception ex)
