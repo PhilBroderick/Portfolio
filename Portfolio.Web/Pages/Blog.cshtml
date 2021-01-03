@@ -20,7 +20,7 @@
                             <h2 class="blog-list-header">
                                 <a asp-page="/Blog" asp-route-title="@blog.Title.Replace(' ', '-')">@blog.Title</a>
                             </h2>
-                            <p>First few paragraphs</p>
+                            @Html.Raw(blog.Description)
                         </div>
                     </div>
                 </li>

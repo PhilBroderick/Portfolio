@@ -14,14 +14,15 @@ namespace Portfolio.Tests.Core.Services.Blog
             return Task.FromResult(GetAllBlogs(numOfBlogs));
         }
 
-        public Task CreateNewBlog(string title, string content)
+        public Task CreateNewBlog(string title, string content, string description)
         {
             return Task.FromResult(new BlogItem
             {
                 Id =  Guid.NewGuid(),
                 Title = title,
                 Content = content,
-                Created = DateTime.Now
+                Created = DateTime.Now,
+                Description = description
             });
         }
 

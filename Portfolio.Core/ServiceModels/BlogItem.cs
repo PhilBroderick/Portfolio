@@ -8,5 +8,6 @@ namespace Portfolio.Core.ServiceModels
         public string Title { get; set; }
         public DateTime Created { get; set; }
         public string Content { get; set; }
+        public string Description { get; set; }
     }
 }
