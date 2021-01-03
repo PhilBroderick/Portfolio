@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Portfolio.Core.Interfaces.Repositories;
 using Portfolio.Core.ServiceModels;
 
-namespace Portfolio.Tests.Core.Services
+namespace Portfolio.Tests.Core.Services.Blog
 {
-    public class BlogRepositoryMock : IBlogRepository
+    public class BlogRepositoryFake : IBlogRepository
     {
         public Task<IEnumerable<BlogItem>> GetBlogs(int numOfBlogs)
         {
