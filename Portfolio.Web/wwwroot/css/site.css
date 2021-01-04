@@ -63,6 +63,11 @@ html {
   min-height: 100%;
 }
 
+nav.navbar {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
 h1 {
   margin-bottom: 20px;
 }
@@ -96,6 +101,14 @@ body {
 .footer-container-list>li {
   line-height: normal;
   padding: 5px;
+}
+
+.footer-container-list>li>a {
+  color: #5a5858;
+}
+
+.main-image {
+  height: 500px;
 }
 
 .contact-input {
