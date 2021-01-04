@@ -11,7 +11,15 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-page="/Index">Phil Broderick</a>
+            @if (ViewData.TryGetValue("HideBrand", out var hideBrandObj) &&
+                 bool.TryParse(hideBrandObj.ToString(), out var hideBrand) && hideBrand)
+            {
+            }
+            else
+            {
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Phil Broderick</a>
+            }
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -30,8 +38,10 @@
     </nav>
 </header>
 <div class="container-fluid">
-    <main role="main" class="pb-3">
-        @RenderBody()
+    <main role="main" class="pb-3 pt-5">
+        <div class="row">
+            @RenderBody()
+        </div>
     </main>
 </div>
 
@@ -39,7 +49,7 @@
     <div class="container d-flex">
         <ul class="footer-container-list">
             <li>
-                <a asp-page="/Home">Home</a>
+                <a asp-page="/Index">Home</a>
             </li>
             <li>
                 <a asp-page="/Blog" asp-route-title="">Blog</a>
@@ -59,7 +69,7 @@
     </div>
     <div class="container d-flex justify-content-center">
         <p>&copy; @DateTime.Now.Year -
-        <a asp-page="/Home">Phil Broderick.</a>
+        <a asp-page="/Index">Phil Broderick.</a>
         Made with @System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription</p>
     </div>
 </footer>

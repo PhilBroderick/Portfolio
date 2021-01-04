@@ -2,19 +2,18 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    ViewData["HideBrand"] = true;
 }
 
-<div class="row">
-    <div class="col-md-3"></div>
-    <div class="d-flex flex-column justify-content-center col-md-3 text-center">
-        <h1 class="display-4 text-dark">Hi, I'm Phil</h1>
-        <p class="text-dark">Full stack developer specialising in Azure and DevOps practices</p>
-    </div>
-    <div class="col-md-6 d-flex justify-content-center">
-        <img class="main-image img-fluid" src="https://pbportfolio.blob.core.windows.net/images/photo-1600267185393-e158a98703de.jpg"/>
-    </div>
+<div class="col-md-3"></div>
+<div class="d-flex flex-column justify-content-center col-md-3 text-center">
+    <h1 class="display-4 text-dark">@IndexModel.Content.Header</h1>
+    <p class="text-dark">@IndexModel.Content.Blurb</p>
 </div>
-<div class="row mt-5">
+<div class="col-md-6 d-flex justify-content-center">
+    <img class="main-image img-fluid" src="@IndexModel.Content.ImageUrl"/>
+</div>
+<div class="row col-md-12 mt-5">
     <div class="col-md-3"></div>
     <div class="col-md-9">
         <h2 class="text-dark">Recent Blog Posts</h2>
