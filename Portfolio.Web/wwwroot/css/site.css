@@ -63,6 +63,11 @@ html {
   min-height: 100%;
 }
 
+nav.navbar {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
 h1 {
   margin-bottom: 20px;
 }
@@ -98,6 +103,14 @@ body {
   padding: 5px;
 }
 
+.footer-container-list>li>a {
+  color: #5a5858;
+}
+
+.main-image {
+  height: 500px;
+}
+
 .contact-input {
   background-color: #f3f3f3;
   border: none;
@@ -115,7 +128,7 @@ body {
 }
 
 .blog-list>li {
-  padding: 15px;
+  padding: 2rem;
 }
 
 .blog-list-header>a {

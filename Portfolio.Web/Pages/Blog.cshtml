@@ -1,44 +1,43 @@
 ﻿@page "{title?}"
-@using Portfolio.Core.Services
 @model Portfolio.Pages.Blog
 
 @{
 }
-
-@if (string.IsNullOrWhiteSpace(Model.Title))
-{
-    <h1>Blog Posts</h1>
-    if (Model.Blogs.Any())
+<div class="col-lg-3 col-md-3 col-sm-0"></div>
+<div class="col-lg-9 col-md-9 col-sm-12">
+    @if (string.IsNullOrWhiteSpace(Model.Title))
     {
-        <ul class="blog-list">
-            @foreach (var blog in Model.Blogs)
-            {
-                <li id="@blog.Id">
-                    <div class="d-flex">
-                        <p class="w-15">@blog.Created.Date.ToString("dd-MM-yyyy")</p>
-                        <div class="d-flex flex-column w-85">
-                            <h2 class="blog-list-header">
-                                <a asp-page="/Blog" asp-route-title="@blog.Title.Replace(' ', '-')">@blog.Title</a>
-                            </h2>
-                            @Html.Raw(blog.Description)
+        <h1>Blog Posts</h1>
+        if (Model.Blogs.Any())
+        {
+            <ul class="blog-list">
+                @foreach (var blog in Model.Blogs)
+                {
+                    <li id="@blog.Id">
+                        <div class="d-flex">
+                            <p class="w-15">@blog.Created.Date.ToString("dd-MM-yyyy")</p>
+                            <div class="d-flex flex-column w-85">
+                                <h2 class="blog-list-header">
+                                    <a asp-page="/Blog" asp-route-title="@blog.Title.Replace(' ', '-')">@blog.Title</a>
+                                </h2>
+                                @Html.Raw(blog.Description)
+                            </div>
                         </div>
-                    </div>
-                </li>
-            }
-        </ul> 
+                    </li>
+                }
+            </ul> 
+        }
+        else
+        {
+            <p>Uh oh! Looks like I haven't uploaded any blogs yet - please check back later!</p>
+        }
     }
     else
     {
-        <p>Uh oh! Looks like I haven't uploaded any blogs yet - please check back later!</p>
+        <h1>@Model.CurrentBlog.Title</h1>
+        <div>
+            <p>@Model.CurrentBlog.Created.ToLongDateString()</p>
+            @Html.Raw(Model.CurrentBlog.Content)
+        </div>
     }
-}
-else
-{
-    <h1>@Model.CurrentBlog.Title</h1>
-    <div>
-        <p>@Model.CurrentBlog.Created.ToLongDateString()</p>
-        @Html.Raw(Model.CurrentBlog.Content)
-    </div>
-}
-
-
+</div>
