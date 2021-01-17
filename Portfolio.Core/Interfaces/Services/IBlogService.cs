@@ -14,5 +14,7 @@ namespace Portfolio.Core.Interfaces.Services
         Task<BlogItem> GetBlogByTitle(string title);
         Task<IEnumerable<BlogItem>> GetAllBlogs();
         Task ToggleBlogActiveStatus(Guid blogId);
+        Task<BlogItem> GetBlogById(Guid id);
+        Task UpdateBlog(UpdateBlogRequest updateBlogRequest);
     }
 }

@@ -23,6 +23,7 @@
                             <form method="post" asp-page-handler="toggle">
                                 <button name="blogId" value="@blog.Id" class="btn btn-default">@(blog.IsActive ? "Deactivate" : "Activate")</button>
                             </form>
+                            <a asp-page="/Admin/EditBlog" asp-route-id="@blog.Id" class="btn btn-default">Edit</a>
                         </div>
                     </div>
                 </li>

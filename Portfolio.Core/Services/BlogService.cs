@@ -56,5 +56,16 @@ namespace Portfolio.Core.Services
         {
             await _blogRepository.ToggleBlogActiveStatus(blogId);
         }
+
+        public async Task<BlogItem> GetBlogById(Guid id)
+        {
+            return await _blogRepository.GetBlogById(id);
+        }
+
+        public async Task UpdateBlog(UpdateBlogRequest updateBlogRequest)
+        {
+            await _blogRepository.UpdateBlog(updateBlogRequest.Id, updateBlogRequest.Title, updateBlogRequest.Content,
+                updateBlogRequest.Description);
+        }
     }
 }

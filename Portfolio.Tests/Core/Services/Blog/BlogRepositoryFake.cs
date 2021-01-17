@@ -11,7 +11,7 @@ namespace Portfolio.Tests.Core.Services.Blog
     {
         public Task<IEnumerable<BlogItem>> GetBlogs(int numOfBlogs)
         {
-            return Task.FromResult(GetAllBlogs(numOfBlogs));
+            return Task.FromResult(GetActiveNBlogs(numOfBlogs));
         }
 
         public Task CreateNewBlog(string title, string content, string description)
@@ -39,7 +39,42 @@ namespace Portfolio.Tests.Core.Services.Blog
             });
         }
 
-        private IEnumerable<BlogItem> GetAllBlogs(int numOfBlogs)
+        public async Task<IEnumerable<BlogItem>> GetAll()
+        {
+            return new List<BlogItem>
+            {
+                new()
+                {
+                    IsActive = true
+                },
+                new()
+                {
+                    IsActive = false
+                }
+            };
+        }
+
+        public Task ToggleBlogActiveStatus(Guid blogId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<BlogItem> GetBlogById(Guid id)
+        {
+            if (id == Guid.Empty)
+                return Task.FromResult<BlogItem>(null);
+            return Task.FromResult(new BlogItem
+            {
+                Id = id
+            });
+        }
+
+        public Task UpdateBlog(Guid id, string title, string content, string description)
+        {
+            throw new NotImplementedException();
+        }
+
+        private IEnumerable<BlogItem> GetActiveNBlogs(int numOfBlogs)
         {
             var start = new DateTime(2000, 1, 1);
             var rng = new Random(Guid.NewGuid().GetHashCode());
@@ -48,7 +83,8 @@ namespace Portfolio.Tests.Core.Services.Blog
             {
                 yield return new BlogItem
                 {
-                    Created = start.AddDays(rng.Next(range))
+                    Created = start.AddDays(rng.Next(range)),
+                    IsActive = true
                 };
             }
         }

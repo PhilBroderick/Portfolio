@@ -1,0 +1,36 @@
+﻿@page
+@model Portfolio.Web.Pages.Admin.EditBlog
+
+@{
+}
+
+<h2>Edit Blog post</h2>
+<div class="d-flex">
+    <form method="post">
+        <div class="d-flex flex-column">
+            <label>Title</label>
+            <input asp-for="Blog.Title" />
+        </div>
+        <div class="d-flex flex-column">
+            <label>Description</label>
+            <textarea asp-for="Blog.Description" rows="3"></textarea>
+        </div>
+        <div class="d-flex flex-column">
+            <label>Content</label>
+            <textarea id="editor" asp-for="Blog.Content"></textarea>
+        </div>
+        @Html.HiddenFor(m => m.Blog.Id)
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+    <script type="text/javascript">
+        ClassicEditor
+            .create( document.querySelector('#editor'))
+            .catch( err => console.log(err))
+    </script>
+}
