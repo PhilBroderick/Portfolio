@@ -17,10 +17,14 @@
     <div class="col-md-3"></div>
     <div class="col-md-9">
         <h2 class="text-dark">Recent Blog Posts</h2>
-        <ul>
-            <li>01-01-2021</li> 
-            <li>01-01-2021</li> 
-            <li>01-01-2021</li> 
+        <ul class="recent-blogs">
+            @foreach (var blog in Model.MostRecentBlogs)
+            {
+                <li>
+                    <span class="blog-date">@blog.Created.Date.ToString("dd-MM-yyyy")</span>
+                    <a asp-page="/Blog" asp-route-title="@blog.Title.Replace(' ', '-')">@blog.Title</a>
+                </li>
+            }
         </ul>
     </div>
 </div>
