@@ -1,0 +1,33 @@
+﻿@page
+@model Portfolio.Web.Pages.Admin.ManageBlogs
+
+@{
+}
+
+<div class="col-lg-9">
+    <h2>Manage Blogs</h2>
+    <a asp-page="/Admin/AddBlog">Add Blog</a>
+    <div class="col-md-12">
+        <ul class="blog-list">
+            @foreach (var blog in Model.Blogs)
+            {
+                <li id="@blog.Id">
+                    <div class="d-flex">
+                        <div class="d-flex flex-column w-85">
+                            <h2 class="blog-list-header">
+                                <a asp-page="/Blog" asp-route-title="@blog.Title.Replace(' ', '-')">@blog.Title</a>
+                            </h2>
+                            @Html.Raw(blog.Description)
+                        </div>
+                        <div class="actions">
+                            <form method="post" asp-page-handler="toggle">
+                                <button name="blogId" value="@blog.Id" class="btn btn-default">@(blog.IsActive ? "Deactivate" : "Activate")</button>
+                            </form>
+                            <a asp-page="/Admin/EditBlog" asp-route-id="@blog.Id" class="btn btn-default">Edit</a>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

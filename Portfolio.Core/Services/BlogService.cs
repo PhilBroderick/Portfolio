@@ -46,5 +46,26 @@ namespace Portfolio.Core.Services
         {
             return await _blogRepository.GetBlogByTitle(title);
         }
+
+        public async Task<IEnumerable<BlogItem>> GetAllBlogs()
+        {
+            return (await _blogRepository.GetAll()).OrderByDescending(b => b.Created);
+        }
+
+        public async Task ToggleBlogActiveStatus(Guid blogId)
+        {
+            await _blogRepository.ToggleBlogActiveStatus(blogId);
+        }
+
+        public async Task<BlogItem> GetBlogById(Guid id)
+        {
+            return await _blogRepository.GetBlogById(id);
+        }
+
+        public async Task UpdateBlog(UpdateBlogRequest updateBlogRequest)
+        {
+            await _blogRepository.UpdateBlog(updateBlogRequest.Id, updateBlogRequest.Title, updateBlogRequest.Content,
+                updateBlogRequest.Description);
+        }
     }
 }

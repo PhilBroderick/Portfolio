@@ -9,5 +9,6 @@ namespace Portfolio.Core.ServiceModels
         public DateTime Created { get; set; }
         public string Content { get; set; }
         public string Description { get; set; }
+        public bool IsActive { get; set; }
     }
 }

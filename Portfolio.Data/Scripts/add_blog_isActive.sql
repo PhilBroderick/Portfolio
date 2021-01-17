@@ -1,0 +1,2 @@
+﻿ALTER TABLE dbo.Blog
+ADD IsActive bit NOT NULL DEFAULT 0
