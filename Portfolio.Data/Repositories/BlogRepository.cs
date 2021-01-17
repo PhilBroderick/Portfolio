@@ -26,7 +26,8 @@ namespace Portfolio.Data.Repositories
         {
             await using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
-            var query = await connection.QueryAsync<BlogItem>(_commandText.GetAllBlogs);
+            var query = await connection.QueryAsync<BlogItem>(_commandText.GetNActiveBlogs, new {numOfBlogs}, 
+                commandType: CommandType.StoredProcedure);
             return query;
         }
 
@@ -44,6 +45,22 @@ namespace Portfolio.Data.Repositories
             var query = await connection.QueryFirstOrDefaultAsync<BlogItem>(_commandText.GetBlogByTitle,
                 new {Title = title});
             return query;
+        }
+
+        public async Task<IEnumerable<BlogItem>> GetAll()
+        {
+            await using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+            var query = await connection.QueryAsync<BlogItem>(_commandText.GetAllBlogs);
+            return query;
+        }
+
+        public async Task ToggleBlogActiveStatus(Guid blogId)
+        {
+            await using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+            var query = await connection.ExecuteAsync(_commandText.ToggleBlogActiveStats, new {id = blogId}, 
+                commandType: CommandType.StoredProcedure);
         }
     }
 }

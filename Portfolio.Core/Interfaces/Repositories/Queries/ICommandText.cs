@@ -6,5 +6,7 @@
         string GetMostRecentBlogs { get; }
         string GetBlogByTitle { get; }
         string CreateBlog { get; }
+        string GetNActiveBlogs { get; }
+        string ToggleBlogActiveStats { get; }
     }
 }
