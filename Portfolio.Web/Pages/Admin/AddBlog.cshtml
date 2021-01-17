@@ -17,10 +17,19 @@
         </div>
         <div class="d-flex flex-column">
             <label>Content</label>
-            <textarea asp-for="CreateBlogRequest.Content" rows="10"></textarea>
+            <textarea id="editor" asp-for="CreateBlogRequest.Content"></textarea>
         </div>
-        <div>
-            <input type="submit" value="Create blog" />
-        </div>
+        <input type="submit" value="Submit">
     </form>
 </div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+    <script type="text/javascript">
+        ClassicEditor
+            .create( document.querySelector('#editor'))
+            .catch( err => console.log(err))
+    </script>
+}
