@@ -4,7 +4,8 @@
 @{
 }
 
-<div class="col-lg-9">
+<div class="col-sm-2 col-md-2 col-lg-3"></div>
+<div class="col-sm-10 col-md-10 col-lg-9">
     <h2>Manage Blogs</h2>
     <a asp-page="/Admin/AddBlog">Add Blog</a>
     <div class="col-md-12">
@@ -13,7 +14,7 @@
             {
                 <li id="@blog.Id">
                     <div class="d-flex">
-                        <div class="d-flex flex-column w-85">
+                        <div class="d-flex flex-column w-60">
                             <h2 class="blog-list-header">
                                 <a asp-page="/Blog" asp-route-title="@blog.Title.Replace(' ', '-')">@blog.Title</a>
                             </h2>
