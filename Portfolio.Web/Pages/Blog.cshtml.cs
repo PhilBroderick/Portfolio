@@ -18,39 +18,47 @@ namespace Portfolio.Pages
     {
         private readonly IBlogService _blogService;
         private readonly IMemoryCache _cache;
+        private readonly IPaginationService _paginationService;
 
+        [BindProperty(SupportsGet = true)] public string Title { get; set; }
+
+        [BindProperty(SupportsGet = true)] public int CurrentPage { get; set; } = 1; 
+        public int Count { get; set; }
+        public int PageSize { get; set; } = 5;
+        
+        public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
         public IEnumerable<BlogItem> Blogs { get; set; }
         public BlogItem CurrentBlog { get; set; }
         
-        [BindProperty(SupportsGet = true)]
-        public string Title { get; set; }
-        
-        public Blog(IBlogService blogService, IMemoryCache cache)
+        public Blog(IBlogService blogService, IMemoryCache cache, IPaginationService paginationService)
         {
             _blogService = blogService;
             _cache = cache;
+            _paginationService = paginationService;
         }
         
         public async Task<IActionResult> OnGetAsync()
         {
             if (string.IsNullOrWhiteSpace(Title))
             {
-                if (_cache.TryGetValue(CacheKeys.Blogs, out List<BlogItem> blogs))
+                if (_cache.TryGetValue(CacheKeys.Blogs, out IEnumerable<BlogItem> blogs))
                 {
-                    Blogs = blogs;
+                    Blogs = _paginationService.PaginateResult(blogs, CurrentPage, PageSize);
+                    Count = blogs.Count();
                 }
                 else
                 {
-                    Blogs = await _blogService.GetMostRecentBlogs(10);
+                    var allBlogs = await _blogService.GetActiveBlogs();
+                    Blogs = _paginationService.PaginateResult(allBlogs, CurrentPage, PageSize);
+                    Count = allBlogs.Count();
 
                     var cacheOptions = new MemoryCacheEntryOptions
                     {
                         SlidingExpiration = TimeSpan.FromDays(1)
                     };
                     // TODO - when adding functionality to create blogs on frontend - register callback method to refresh cache when new blog added
-                    //cacheOptions.RegisterPostEvictionCallback(MyCallback, this);
 
-                    _cache.Set(CacheKeys.Blogs, Blogs.ToList(), cacheOptions);
+                    _cache.Set(CacheKeys.Blogs, allBlogs.ToList(), cacheOptions);
                 }
             }
             else
@@ -58,6 +66,8 @@ namespace Portfolio.Pages
                 CurrentBlog = await _blogService.GetBlogByTitle(Title.Replace('-', ' '));
                 if (CurrentBlog is null) return NotFound();
             }
+
+            Blogs ??= new List<BlogItem>();
 
             return Page();
         }

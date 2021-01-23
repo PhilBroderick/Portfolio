@@ -3,7 +3,7 @@
     public interface ICommandText
     {
         string GetAllBlogs { get; }
-        string GetMostRecentBlogs { get; }
+        string GetActiveBlogs { get; }
         string GetBlogByTitle { get; }
         string GetBlogById { get; }
         string CreateBlog { get; }

@@ -25,7 +25,16 @@
                         </div>
                     </li>
                 }
-            </ul> 
+            </ul>
+            <div class="d-flex justify-content-center">
+                <ul class="pagination">@for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" :"")">
+                            <a asp-page="/blog" asp-route-currentpage="@i" class="page-link">@i</a>
+                        </li>
+                    }
+                </ul>
+            </div>
         }
         else
         {

@@ -21,8 +21,16 @@ namespace Portfolio.Data.Repositories
             _commandText = commandText;
             _connectionString = config.GetConnectionString("DefaultConnection");
         }
-        
-        public async Task<IEnumerable<BlogItem>> GetBlogs(int numOfBlogs)
+
+        public async Task<IEnumerable<BlogItem>> GetActiveBlogs()
+        {
+            await using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+            var query = await connection.QueryAsync<BlogItem>(_commandText.GetActiveBlogs);
+            return query;
+        }
+
+        public async Task<IEnumerable<BlogItem>> GetActiveBlogs(int numOfBlogs)
         {
             await using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();

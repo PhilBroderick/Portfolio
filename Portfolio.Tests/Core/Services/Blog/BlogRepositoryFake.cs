@@ -9,7 +9,12 @@ namespace Portfolio.Tests.Core.Services.Blog
 {
     public class BlogRepositoryFake : IBlogRepository
     {
-        public Task<IEnumerable<BlogItem>> GetBlogs(int numOfBlogs)
+        public Task<IEnumerable<BlogItem>> GetActiveBlogs()
+        {
+            return Task.FromResult(GetActiveNBlogs(100));
+        }
+
+        public Task<IEnumerable<BlogItem>> GetActiveBlogs(int numOfBlogs)
         {
             return Task.FromResult(GetActiveNBlogs(numOfBlogs));
         }
