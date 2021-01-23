@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -20,9 +21,8 @@ namespace Portfolio.Web.Pages.Admin
             _blogService = blogService;
         }
         
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            
         }
 
         public async Task<IActionResult> OnPostAsync()
