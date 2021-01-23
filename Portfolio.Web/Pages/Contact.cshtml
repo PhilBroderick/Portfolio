@@ -13,13 +13,15 @@
             <div class="d-flex flex-column">
                 <label>Your Email:</label>
                 <input asp-for="ContactSubmission.Email" class="contact-input">
+                <span asp-validation-for="ContactSubmission.Email"></span>
             </div>
             <div class="d-flex flex-column">
                 <label>Your Message:</label>
                 <textarea asp-for="ContactSubmission.Message" rows="6" class="contact-input"></textarea>
+                <span asp-validation-for="ContactSubmission.Message"></span>
             </div>
             <div>
-                <input type="submit" value="Send message"/>
+                <input class="contact-button" type="submit" value="Send message"/>
             </div>
         </form>
     </div>

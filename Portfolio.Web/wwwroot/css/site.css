@@ -111,6 +111,26 @@ body {
   height: 500px;
 }
 
+.recent-blogs {
+  list-style: none;
+  padding-left: 0;
+}
+
+.recent-blogs>li {
+  padding: 10px 0;
+  font-size: 1.2rem;
+}
+
+.recent-blogs>li>a {
+  margin-left: 30px;
+  text-decoration: none;
+  color: #676767;
+}
+
+.recent-blogs>li>a:hover {
+  color: black;
+}
+
 .contact-input {
   background-color: #f3f3f3;
   border: none;
@@ -123,12 +143,27 @@ body {
   background-color: #ededfb;
 }
 
+.field-validation-error {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.contact-button {
+  background-color: #44d455;
+  border: none;
+  padding: 10px;
+}
+
 .blog-list {
   list-style: none;
 }
 
 .blog-list>li {
   padding: 2rem;
+}
+
+.blog-date {
+  color: #32a23f;
 }
 
 .blog-list-header>a {
