@@ -19,7 +19,7 @@ namespace Portfolio.Core.Services
         
         public async Task<IEnumerable<BlogItem>> GetMostRecentBlogs(int numOfBlogs)
         {
-            return (await _blogRepository.GetBlogs(numOfBlogs)).OrderByDescending(b => b.Created);
+            return (await _blogRepository.GetActiveBlogs(numOfBlogs)).OrderByDescending(b => b.Created);
         }
 
         public async Task<bool> CreateNewBlog(CreateBlogRequest createBlogRequest)
@@ -66,6 +66,11 @@ namespace Portfolio.Core.Services
         {
             await _blogRepository.UpdateBlog(updateBlogRequest.Id, updateBlogRequest.Title, updateBlogRequest.Content,
                 updateBlogRequest.Description);
+        }
+
+        public async Task<IEnumerable<BlogItem>> GetActiveBlogs()
+        {
+            return await _blogRepository.GetActiveBlogs();
         }
     }
 }

@@ -37,6 +37,7 @@ namespace Portfolio
             
             services.AddSingleton<IMessageService, EmailService>();
             services.AddScoped<IBlogService, BlogService>();
+            services.AddScoped<IPaginationService, PaginationService>();
             services.AddScoped<IBlogRepository, BlogRepository>();
             services.AddScoped<ICommandText, BlogCommandText>();
             services.Configure<RouteOptions>(options =>
