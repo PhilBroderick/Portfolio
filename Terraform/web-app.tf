@@ -5,15 +5,15 @@
   kind                = "Linux"
   reserved            = true
   sku {
-    size = "Y1"
-    tier = "Dynamic"
+    size = "F1"
+    tier = "Free"
   }
 }
 
 resource "azurerm_app_service" "app_service" {
   app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
-  location = var.location
-  name = var.web_app_name
+  location            = var.location
+  name                = var.web_app_name
   resource_group_name = azurerm_resource_group.resource_group.name
   
   site_config {
