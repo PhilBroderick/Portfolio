@@ -35,16 +35,25 @@ namespace Portfolio.Web.Pages.Admin
         public async Task OnGetAsync()
         {
             var allBlogs = await _blogService.GetAllBlogs();
-            Blogs = _paginationService.PaginateResult(allBlogs, CurrentPage, PageSize);
             Count = allBlogs.Count();
+
+            if (_paginationService.IsInvalidCurrentPage(CurrentPage, TotalPages))
+                CurrentPage = 1;
+            
+            Blogs = _paginationService.PaginateResult(allBlogs, CurrentPage, PageSize);
         }
 
         public async Task OnPostToggleAsync(Guid blogId)
         {
             await _blogService.ToggleBlogActiveStatus(blogId);
             var allBlogs = await _blogService.GetAllBlogs();
-            Blogs = _paginationService.PaginateResult(allBlogs, CurrentPage, PageSize);
             Count = allBlogs.Count();
+            
+            if (_paginationService.IsInvalidCurrentPage(CurrentPage, TotalPages))
+                CurrentPage = 1;
+            
+            Blogs = _paginationService.PaginateResult(allBlogs, CurrentPage, PageSize);
+
             _cache.Remove(CacheKeys.Blogs);
         }
     }

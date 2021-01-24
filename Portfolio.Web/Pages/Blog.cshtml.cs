@@ -43,15 +43,19 @@ namespace Portfolio.Pages
             {
                 if (_cache.TryGetValue(CacheKeys.Blogs, out IEnumerable<BlogItem> blogs))
                 {
-                    Blogs = _paginationService.PaginateResult(blogs, CurrentPage, PageSize);
                     Count = blogs.Count();
+                    if (_paginationService.IsInvalidCurrentPage(CurrentPage, TotalPages))
+                        CurrentPage = 1;
+                    Blogs = _paginationService.PaginateResult(blogs, CurrentPage, PageSize);
                 }
                 else
                 {
                     var allBlogs = await _blogService.GetActiveBlogs();
-                    Blogs = _paginationService.PaginateResult(allBlogs, CurrentPage, PageSize);
                     Count = allBlogs.Count();
-
+                    if (_paginationService.IsInvalidCurrentPage(CurrentPage, TotalPages))
+                        CurrentPage = 1;
+                    Blogs = _paginationService.PaginateResult(allBlogs, CurrentPage, PageSize);
+                    
                     var cacheOptions = new MemoryCacheEntryOptions
                     {
                         SlidingExpiration = TimeSpan.FromDays(1)

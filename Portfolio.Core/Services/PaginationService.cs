@@ -11,5 +11,8 @@ namespace Portfolio.Core.Services
         {
             return list.Skip((currentPage - 1) * pageSize).Take(pageSize);
         }
+
+        public bool IsInvalidCurrentPage(int currentPage, int totalPages) =>
+            currentPage > totalPages || currentPage <= 0;
     }
 }

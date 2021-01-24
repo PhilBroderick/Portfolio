@@ -6,5 +6,6 @@ namespace Portfolio.Core.Interfaces.Services
     public interface IPaginationService
     {
         IEnumerable<T> PaginateResult<T>(IEnumerable<T> list, int currentPage, int pageSize);
+        bool IsInvalidCurrentPage(int currentPage, int totalPages);
     }
 }
