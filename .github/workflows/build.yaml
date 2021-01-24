@@ -10,6 +10,11 @@ on:
       - master
       - develop
 
+env:
+  WEB_APP_NAME: 'philbroderickportfolio'
+  PACKAGE_PATH: './publish'
+  ARTIFACT_NAME: 'portfolio'
+
 jobs:
   build:
 
@@ -27,3 +32,82 @@ jobs:
         run: dotnet build --no-restore
       - name: Test
         run: dotnet test --no-build --verbosity normal
+      - name: Publish
+        run: dotnet publish -c Release -o ${{ env.PACKAGE_PATH }}
+      - name: Archive publish artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ env.PACKAGE_PATH }}
+  
+  infra:
+
+    runs-on: ubuntu-latest
+    env:
+      WORKING_DIRECTORY: './Terraform'
+      ARM_CLIENT_ID: ${{ secrets.TF_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.TF_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.TF_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.TF_SUBSCRIPTION_ID }}
+      
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+
+      - name: Terraform Validate
+        run: terraform validate -no-color
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+
+      - name: Terraform Plan
+        run: |
+          terraform plan \
+          -var 'subscription_id=${{ secrets.TF_SUBSCRIPTION_ID }}' \
+          -var 'tenant_id=${{ secrets.TF_TENANT_ID }}' \
+          -var 'client_id=${{ secrets.TF_CLIENT_ID }}' \
+          -var 'client_secret=${{ secrets.TF_CLIENT_SECRET }}'
+        continue-on-error: true
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+
+      - name: Terraform apply
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: |
+          terraform apply -auto-approve \
+          -var 'subscription_id=${{ secrets.TF_SUBSCRIPTION_ID }}' \
+          -var 'tenant_id=${{ secrets.TF_TENANT_ID }}' \
+          -var 'client_id=${{ secrets.TF_CLIENT_ID }}' \
+          -var 'client_secret=${{ secrets.TF_CLIENT_SECRET }}'
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        
+  deploy:
+
+    runs-on: ubuntu-latest
+    needs: [build, infra]
+    if: github.ref =='refs/heads/master' && github.event_name == 'push'
+    
+    steps:
+      - uses: actions/checkout@v2
+        
+      - name: Download publish artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ env.PACKAGE_PATH }}
+        
+      - name: Login via Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+      - name: Publish to App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.WEB_APP_NAME }}
+          package: ${{ env.PACKAGE_PATH }}
