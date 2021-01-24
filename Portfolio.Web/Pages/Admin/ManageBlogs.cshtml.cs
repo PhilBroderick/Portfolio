@@ -40,7 +40,7 @@ namespace Portfolio.Web.Pages.Admin
             if (_paginationService.IsInvalidCurrentPage(CurrentPage, TotalPages))
                 CurrentPage = 1;
             
-            Blogs = _paginationService.PaginateResult(allBlogs, CurrentPage, PageSize);
+            Blogs = _paginationService.PaginateList(allBlogs, CurrentPage, PageSize);
         }
 
         public async Task OnPostToggleAsync(Guid blogId)
@@ -52,7 +52,7 @@ namespace Portfolio.Web.Pages.Admin
             if (_paginationService.IsInvalidCurrentPage(CurrentPage, TotalPages))
                 CurrentPage = 1;
             
-            Blogs = _paginationService.PaginateResult(allBlogs, CurrentPage, PageSize);
+            Blogs = _paginationService.PaginateList(allBlogs, CurrentPage, PageSize);
 
             _cache.Remove(CacheKeys.Blogs);
         }

@@ -46,7 +46,7 @@ namespace Portfolio.Pages
                     Count = blogs.Count();
                     if (_paginationService.IsInvalidCurrentPage(CurrentPage, TotalPages))
                         CurrentPage = 1;
-                    Blogs = _paginationService.PaginateResult(blogs, CurrentPage, PageSize);
+                    Blogs = _paginationService.PaginateList(blogs, CurrentPage, PageSize);
                 }
                 else
                 {
@@ -54,7 +54,7 @@ namespace Portfolio.Pages
                     Count = allBlogs.Count();
                     if (_paginationService.IsInvalidCurrentPage(CurrentPage, TotalPages))
                         CurrentPage = 1;
-                    Blogs = _paginationService.PaginateResult(allBlogs, CurrentPage, PageSize);
+                    Blogs = _paginationService.PaginateList(allBlogs, CurrentPage, PageSize);
                     
                     var cacheOptions = new MemoryCacheEntryOptions
                     {

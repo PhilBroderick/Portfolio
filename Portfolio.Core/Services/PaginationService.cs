@@ -7,7 +7,7 @@ namespace Portfolio.Core.Services
 {
     public class PaginationService : IPaginationService
     {
-        public IEnumerable<T> PaginateResult<T>(IEnumerable<T> list, int currentPage, int pageSize)
+        public IEnumerable<T> PaginateList<T>(IEnumerable<T> list, int currentPage, int pageSize)
         {
             return list.Skip((currentPage - 1) * pageSize).Take(pageSize);
         }
