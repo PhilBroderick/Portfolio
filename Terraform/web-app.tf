@@ -5,8 +5,8 @@
   kind                = "Linux"
   reserved            = true
   sku {
-    size = "F1"
-    tier = "Free"
+    size = "B1"
+    tier = "Basic"
   }
 }
 
