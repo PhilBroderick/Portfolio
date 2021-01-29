@@ -1,0 +1,8 @@
+﻿@if (!string.IsNullOrEmpty(ViewData["AlertType"]?.ToString()))
+{
+    <div class="alert-container">
+        <div class="alert alert-@ViewData["AlertType"].ToString() alert-dismissible" role="alert" id="alert">
+            @ViewData["AlertMessage"]?.ToString()
+        </div>
+    </div>
+}
