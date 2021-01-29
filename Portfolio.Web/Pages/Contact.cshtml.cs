@@ -26,6 +26,7 @@ namespace Portfolio.Pages
         [BindProperty] 
         public ContactSubmission ContactSubmission { get; set; }
 
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
@@ -37,9 +38,18 @@ namespace Portfolio.Pages
 
             var result = await _messageService.SendMessageAsync(ContactSubmission.Message, ContactSubmission.Email,
                 contactRecipientsOptions.ContactRecipients.Split(","));
-
-            if (result.IsSuccess) return Page();
-            return BadRequest();
+            
+            if (result.IsSuccess)
+            {
+                ContactSubmission = new ContactSubmission();
+                ModelState.Clear();
+                ViewData["AlertType"] = "success";
+                ViewData["AlertMessage"] = "Your message has been sent - I'll be in touch soon!";
+                return Page();
+            }
+            ViewData["AlertType"] = "danger";
+            ViewData["AlertMessage"] = "Uh oh! Not sure what happened there. Please try again";
+            return Page();
         }
     }
 }

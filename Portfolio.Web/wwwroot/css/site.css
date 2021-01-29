@@ -107,6 +107,14 @@ body {
   color: #5a5858;
 }
 
+.alert-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  top: 6rem;
+}
+
 .main-image {
   height: 500px;
 }
