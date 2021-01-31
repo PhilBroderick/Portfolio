@@ -14,6 +14,7 @@
             @if (ViewData.TryGetValue("HideBrand", out var hideBrandObj) &&
                  bool.TryParse(hideBrandObj.ToString(), out var hideBrand) && hideBrand)
             {
+                <a class="navbar-brand"></a>
             }
             else
             {
