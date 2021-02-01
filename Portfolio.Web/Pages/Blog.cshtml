@@ -4,7 +4,7 @@
 @{
 }
 <div class="col-lg-3 col-md-3 col-sm-0"></div>
-<div class="col-lg-9 col-md-9 col-sm-12">
+<div class="col-lg-6 col-md-6 col-sm-12">
     @if (string.IsNullOrWhiteSpace(Model.Title))
     {
         <h1>Blog Posts</h1>
@@ -26,15 +26,19 @@
                     </li>
                 }
             </ul>
-            <div class="d-flex justify-content-center">
-                <ul class="pagination">@for (int i = 1; i <= Model.TotalPages; i++)
-                    {
-                        <li class="page-item @(i == Model.CurrentPage ? "active" :"")">
-                            <a asp-page="/blog" asp-route-currentpage="@i" class="page-link">@i</a>
-                        </li>
-                    }
-                </ul>
-            </div>
+            @if (Model.TotalPages > 1)
+            {
+                <div class="d-flex justify-content-end">
+                    <ul class="pagination">
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                <a asp-page="/blog" asp-route-currentpage="@i" class="page-link">@i</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
         }
         else
         {
@@ -50,3 +54,4 @@
         </div>
     }
 </div>
+<div class="col-lg-3 col-md-3 col-sm-0"></div>

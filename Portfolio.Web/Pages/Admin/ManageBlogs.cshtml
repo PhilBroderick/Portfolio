@@ -30,14 +30,18 @@
                 </li>
             }
         </ul>
-        <div class="d-flex justify-content-center">
-            <ul class="pagination">@for (int i = 1; i <= Model.TotalPages; i++)
-                {
-                    <li class="page-item @(i == Model.CurrentPage ? "active" :"")">
-                        <a asp-page="/Admin/Manageblogs" asp-route-currentpage="@i" class="page-link">@i</a>
-                    </li>
-                }
-            </ul>
-        </div>
+        @if (Model.TotalPages > 1)
+        {
+            <div class="d-flex justify-content-end">
+                <ul class="pagination">
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a asp-page="/Admin/Manageblogs" asp-route-currentpage="@i" class="page-link">@i</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
     </div>
 </div>
