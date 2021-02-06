@@ -4,7 +4,6 @@
 @{
 }
 
-<div class="col-sm-2 col-md-2 col-lg-3"></div>
 <div class="col-sm-10 col-md-10 col-lg-9">
     <h1>Contact</h1>
     <p>Get in touch!</p>
@@ -20,7 +19,7 @@
                 <textarea asp-for="ContactSubmission.Message" rows="6" class="contact-input"></textarea>
                 <span asp-validation-for="ContactSubmission.Message"></span>
             </div>
-            <div>
+            <div class="pt-3">
                 <input class="contact-button" type="submit" value="Send message"/>
             </div>
         </form>
