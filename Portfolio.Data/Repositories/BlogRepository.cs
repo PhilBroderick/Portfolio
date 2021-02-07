@@ -39,12 +39,12 @@ namespace Portfolio.Data.Repositories
             return query;
         }
 
-        public async Task CreateNewBlog(string title, string content, string description)
+        public async Task CreateNewBlog(string title, string content, string description, string imageUrl)
         {
             var newId = Guid.NewGuid();
             await using var connection = new SqlConnection(_connectionString);
             await connection.ExecuteAsync(_commandText.CreateBlog,
-                new {Id = newId, Title = title, Content = content, Description = description});
+                new {Id = newId, Title = title, Content = content, Description = description, ImageUrl = imageUrl});
         }
 
         public async Task<BlogItem> GetBlogByTitle(string title)
@@ -79,12 +79,12 @@ namespace Portfolio.Data.Repositories
             return query;
         }
 
-        public async Task UpdateBlog(Guid id, string title, string content, string description)
+        public async Task UpdateBlog(Guid id, string title, string content, string description, string imageUrl)
         {
             await using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
             var query = await connection.ExecuteAsync(_commandText.UpdateBlog, 
-                new { Id = id, Title = title, Content = content, Description = description });
+                new { Id = id, Title = title, Content = content, Description = description, ImageUrl = imageUrl });
         }
     }
 }

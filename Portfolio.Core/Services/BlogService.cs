@@ -24,16 +24,17 @@ namespace Portfolio.Core.Services
 
         public async Task<bool> CreateNewBlog(CreateBlogRequest createBlogRequest)
         {
-            var (title, content, description) = createBlogRequest;
+            var (title, content, description, imageUrl) = createBlogRequest;
             
             if (string.IsNullOrWhiteSpace(title) ||
                 string.IsNullOrWhiteSpace(content) ||
-                string.IsNullOrWhiteSpace(description))
+                string.IsNullOrWhiteSpace(description) ||
+                string.IsNullOrWhiteSpace(imageUrl))
                 return false;
 
             try
             {
-                await _blogRepository.CreateNewBlog(title, content, description);
+                await _blogRepository.CreateNewBlog(title, content, description, imageUrl);
                 return true;
             }
             catch (Exception ex)
@@ -65,7 +66,7 @@ namespace Portfolio.Core.Services
         public async Task UpdateBlog(UpdateBlogRequest updateBlogRequest)
         {
             await _blogRepository.UpdateBlog(updateBlogRequest.Id, updateBlogRequest.Title, updateBlogRequest.Content,
-                updateBlogRequest.Description);
+                updateBlogRequest.Description, updateBlogRequest.ImageUrl);
         }
 
         public async Task<IEnumerable<BlogItem>> GetActiveBlogs()

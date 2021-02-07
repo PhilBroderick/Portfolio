@@ -9,11 +9,11 @@ namespace Portfolio.Core.Interfaces.Repositories
     {
         Task<IEnumerable<BlogItem>> GetActiveBlogs();
         Task<IEnumerable<BlogItem>> GetActiveBlogs(int numOfBlogs);
-        Task CreateNewBlog(string title, string content, string description);
+        Task CreateNewBlog(string title, string content, string description, string imageUrl);
         Task<BlogItem> GetBlogByTitle(string title);
         Task<IEnumerable<BlogItem>> GetAll();
         Task ToggleBlogActiveStatus(Guid blogId);
         Task<BlogItem> GetBlogById(Guid id);
-        Task UpdateBlog(Guid id, string title, string content, string description);
+        Task UpdateBlog(Guid id, string title, string content, string description, string imageUrl);
     }
 }
