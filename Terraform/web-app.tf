@@ -15,6 +15,7 @@ resource "azurerm_app_service" "app_service" {
   location            = var.location
   name                = var.web_app_name
   resource_group_name = azurerm_resource_group.resource_group.name
+  https_only          = true
   
   site_config {
     dotnet_framework_version  = "v5.0"
