@@ -34,7 +34,7 @@ namespace Portfolio.Tests.Core.Services.Blog
         [Fact]
         public async void CreateBlog_ValidCreateBlogRequest_ReturnsTrue()
         {
-            var createBlogRequest = new CreateBlogRequest("New blog title", "New blog content", "New description");
+            var createBlogRequest = new CreateBlogRequest("New blog title", "New blog content", "New description", "New image url");
 
             var result = await _blogService.CreateNewBlog(createBlogRequest);
             
@@ -44,7 +44,7 @@ namespace Portfolio.Tests.Core.Services.Blog
         [Fact]
         public async void CreateBlog_InvalidCreateBlogRequest_ReturnsFalse()
         {
-            var createBlogRequest = new CreateBlogRequest("", "", "");
+            var createBlogRequest = new CreateBlogRequest("", "", "", "");
 
             var result = await _blogService.CreateNewBlog(createBlogRequest);
 

@@ -1,55 +1,12 @@
-﻿@page "{title?}"
+﻿@page "{title}"
 @model Portfolio.Pages.Blog
 
 @{
 }
-<div class="d-flex flex-column blog-container">
-    @if (string.IsNullOrWhiteSpace(Model.Title))
-    {
-        <h1>Blog Posts</h1>
-        if (Model.Blogs.Any())
-        {
-            <ul class="blog-list">
-                @foreach (var blog in Model.Blogs)
-                {
-                    <li id="@blog.Id">
-                        <div class="d-flex">
-                            <p class="w-15 blog-date">@blog.Created.Date.ToString("dd-MM-yyyy")</p>
-                            <div class="d-flex flex-column w-85">
-                                <h2 class="blog-list-header">
-                                    <a asp-page="/Blog" asp-route-title="@blog.Title.Replace(' ', '-')">@blog.Title</a>
-                                </h2>
-                                @Html.Raw(blog.Description)
-                            </div>
-                        </div>
-                    </li>
-                }
-            </ul>
-            @if (Model.TotalPages > 1)
-            {
-                <div class="d-flex justify-content-end">
-                    <ul class="pagination">
-                        @for (int i = 1; i <= Model.TotalPages; i++)
-                        {
-                            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                                <a asp-page="/blog" asp-route-currentpage="@i" class="page-link">@i</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            }
-        }
-        else
-        {
-            <p>Uh oh! Looks like I haven't uploaded any blogs yet - please check back later!</p>
-        }
-    }
-    else
-    {
-        <h1>@Model.CurrentBlog.Title</h1>
-        <div>
-            <p>@Model.CurrentBlog.Created.ToLongDateString()</p>
-            @Html.Raw(Model.CurrentBlog.Content)
-        </div>
-    }
+<div class="d-flex flex-column blog-container overflow-auto main-padding">
+    <h1>@Model.CurrentBlog.Title</h1>
+    <div>
+        <p>@Model.CurrentBlog.Created.ToLongDateString()</p>
+        @Html.Raw(Model.CurrentBlog.Content)
+    </div>
 </div>

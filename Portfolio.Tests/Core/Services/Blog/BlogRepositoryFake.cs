@@ -19,7 +19,7 @@ namespace Portfolio.Tests.Core.Services.Blog
             return Task.FromResult(GetActiveNBlogs(numOfBlogs));
         }
 
-        public Task CreateNewBlog(string title, string content, string description)
+        public Task CreateNewBlog(string title, string content, string description, string imageUrl)
         {
             return Task.FromResult(new BlogItem
             {
@@ -27,7 +27,8 @@ namespace Portfolio.Tests.Core.Services.Blog
                 Title = title,
                 Content = content,
                 Created = DateTime.Now,
-                Description = description
+                Description = description,
+                ImageUrl = imageUrl
             });
         }
 
@@ -74,7 +75,7 @@ namespace Portfolio.Tests.Core.Services.Blog
             });
         }
 
-        public Task UpdateBlog(Guid id, string title, string content, string description)
+        public Task UpdateBlog(Guid id, string title, string content, string description, string imageUrl)
         {
             throw new NotImplementedException();
         }
