@@ -3,28 +3,28 @@
 
 @{
 }
-<div class="d-flex flex-column blog-container">
+<div class="d-flex flex-column blog-container @(string.IsNullOrWhiteSpace(Model.Title) ? "" : "overflow-auto") ">
     @if (string.IsNullOrWhiteSpace(Model.Title))
     {
         <h1>Blog Posts</h1>
         if (Model.Blogs.Any())
         {
-            <ul class="blog-list">
+            <div class="row">
                 @foreach (var blog in Model.Blogs)
                 {
-                    <li id="@blog.Id">
-                        <div class="d-flex">
-                            <p class="w-15 blog-date">@blog.Created.Date.ToString("dd-MM-yyyy")</p>
-                            <div class="d-flex flex-column w-85">
-                                <h2 class="blog-list-header">
-                                    <a asp-page="/Blog" asp-route-title="@blog.Title.Replace(' ', '-')">@blog.Title</a>
-                                </h2>
-                                @Html.Raw(blog.Description)
+                    <div id="@blog.Id" class="col-sm-12 col-md-12 col-lg-6 col-xl-4 blog-container-item">
+                        <a asp-page="/Blog" asp-route-title="@blog.Title.Replace(' ', '-')">
+                            <img src="@blog.ImageUrl" alt="@blog.Title"/>
+                            <div class="blog-header-text d-flex flex-column">
+                                <h3>@blog.Title</h3>
+                                <p>@blog.Created.Date.ToString("ddd, dd MMM yy")</p>
+                                <hr/>
+                                <p>@blog.Description</p>
                             </div>
-                        </div>
-                    </li>
+                        </a>
+                    </div>
                 }
-            </ul>
+            </div>
             @if (Model.TotalPages > 1)
             {
                 <div class="d-flex justify-content-end">

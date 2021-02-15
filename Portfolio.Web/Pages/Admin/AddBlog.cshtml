@@ -17,6 +17,10 @@
                 <textarea asp-for="CreateBlogRequest.Description" rows="3"></textarea>
             </div>
             <div class="d-flex flex-column">
+                <label>Main Image Url</label>
+                <input asp-for="CreateBlogRequest.ImageUrl"/>
+            </div>
+            <div class="d-flex flex-column">
                 <label>Content</label>
                 <textarea id="editor" asp-for="CreateBlogRequest.Content"></textarea>
             </div>

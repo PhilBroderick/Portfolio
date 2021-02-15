@@ -29,7 +29,7 @@ namespace Portfolio.Web.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var updateRequest = new UpdateBlogRequest(Blog.Id, Blog.Title, Blog.Content, Blog.Description);
+            var updateRequest = new UpdateBlogRequest(Blog.Id, Blog.Title, Blog.Content, Blog.Description, Blog.ImageUrl);
             await _blogService.UpdateBlog(updateRequest);
             return RedirectToPage("/Admin/ManageBlogs");
         }

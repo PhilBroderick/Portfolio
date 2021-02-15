@@ -71,7 +71,7 @@ namespace Portfolio.Core.Services
 
         public async Task<IEnumerable<BlogItem>> GetActiveBlogs()
         {
-            return await _blogRepository.GetActiveBlogs();
+            return (await _blogRepository.GetActiveBlogs()).OrderByDescending(b => b.Created);
         }
     }
 }

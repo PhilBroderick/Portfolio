@@ -9,7 +9,7 @@
     <h2>Manage Blogs</h2>
     <a asp-page="/Admin/AddBlog">Add Blog</a>
     <div class="col-md-12">
-        <ul class="blog-list">
+        <ul class="blog-list-admin">
             @foreach (var blog in Model.Blogs)
             {
                 <li id="@blog.Id">

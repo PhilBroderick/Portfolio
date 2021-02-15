@@ -200,15 +200,15 @@ body {
 
 .blog-container {
   height: 100%;
-  overflow: auto;
 }
 
 .alert-container {
   display: flex;
   justify-content: center;
   position: absolute;
-  width: 100%;
-  top: 6rem;
+  width: 70%;
+  top: 5rem;
+  z-index: 100;
 }
 
 .main-image {
@@ -258,20 +258,65 @@ body {
   padding: 10px;
 }
 
-.blog-list {
+.blog-container-item {
+  margin-bottom: 2rem;
+}
+
+.blog-container-item:hover {
+  box-shadow: rgb(0 0 0 / 16%) 0px 10px 36px 0px, rgb(0 0 0 / 6%) 0px 0px 0px 1px;
+  cursor: pointer;
+}
+
+.blog-container-item:hover>a>.blog-header-text>h3 {
+  color: #4c99dc;
+}
+
+.blog-container-item>a {
+  color: black;
+  text-decoration: none;
+}
+
+.blog-container-item>a>img {
+  width: 100%;
+  height: 60%;
+}
+
+.blog-header-text {
+  margin-top: 0.6rem;
+}
+
+.blog-header-text>h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.blog-header-text>p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.blog-header-text>hr {
+  background-color: #4c99dc;
+  width: 25%;
+  margin-left: 0;
+  border: none;
+  height: 2px;
+}
+
+.blog-list-admin {
   list-style: none;
 }
 
-.blog-list>li {
+.blog-list-admin>li {
   padding: 2rem;
-}
-
-.blog-date {
-  color: #32a23f;
 }
 
 .blog-list-header>a {
   color: black;
+}
+
+figure.image {
+  text-align: center;
 }
 
 @media only screen and (min-width: 600px) {
