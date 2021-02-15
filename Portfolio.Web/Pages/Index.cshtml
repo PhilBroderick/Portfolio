@@ -10,7 +10,7 @@
         <div class="row">
             @foreach (var blog in Model.Blogs)
             {
-                <div id="@blog.Id" class="col-sm-12 col-md-12 col-lg-6 col-xl-4 blog-container-item">
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4 blog-container-item">
                     <a asp-page="/blog" asp-route-title="@blog.Title.Replace(' ', '-')">
                         <img src="@blog.ImageUrl" alt="@blog.Title"/>
                         <div class="blog-header-text d-flex flex-column">
