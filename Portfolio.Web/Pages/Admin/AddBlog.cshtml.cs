@@ -31,7 +31,7 @@ namespace Portfolio.Web.Pages.Admin
                 return Page();
 
             if (await _blogService.CreateNewBlog(CreateBlogRequest))
-                return RedirectToPage("/Blog");
+                return RedirectToPage("/Admin/ManageBlogs");
 
             return Page();
         }
