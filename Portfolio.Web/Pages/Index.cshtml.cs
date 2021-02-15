@@ -20,8 +20,6 @@ namespace Portfolio.Pages
         private readonly IMemoryCache _cache;
         private readonly IPaginationService _paginationService;
 
-        [BindProperty(SupportsGet = true)] public string Title { get; set; }
-
         [BindProperty(SupportsGet = true)] public int CurrentPage { get; set; } = 1; 
         public int Count { get; set; }
         public int PageSize { get; set; } = 6;
@@ -39,35 +37,27 @@ namespace Portfolio.Pages
         
         public async Task<IActionResult> OnGetAsync()
         {
-            if (string.IsNullOrWhiteSpace(Title))
+            if (_cache.TryGetValue(CacheKeys.Blogs, out IEnumerable<BlogItem> blogs))
             {
-                if (_cache.TryGetValue(CacheKeys.Blogs, out IEnumerable<BlogItem> blogs))
-                {
-                    Count = blogs.Count();
-                    if (_paginationService.IsInvalidCurrentPage(CurrentPage, TotalPages))
-                        CurrentPage = 1;
-                    Blogs = _paginationService.PaginateList(blogs, CurrentPage, PageSize);
-                }
-                else
-                {
-                    var allBlogs = await _blogService.GetActiveBlogs();
-                    Count = allBlogs.Count();
-                    if (_paginationService.IsInvalidCurrentPage(CurrentPage, TotalPages))
-                        CurrentPage = 1;
-                    Blogs = _paginationService.PaginateList(allBlogs, CurrentPage, PageSize);
-                    
-                    var cacheOptions = new MemoryCacheEntryOptions
-                    {
-                        SlidingExpiration = TimeSpan.FromDays(1)
-                    };
-
-                    _cache.Set(CacheKeys.Blogs, allBlogs.ToList(), cacheOptions);
-                }
+                Count = blogs.Count();
+                if (_paginationService.IsInvalidCurrentPage(CurrentPage, TotalPages))
+                    CurrentPage = 1;
+                Blogs = _paginationService.PaginateList(blogs, CurrentPage, PageSize);
             }
             else
             {
-                CurrentBlog = await _blogService.GetBlogByTitle(Title.Replace('-', ' '));
-                if (CurrentBlog is null) return NotFound();
+                var allBlogs = await _blogService.GetActiveBlogs();
+                Count = allBlogs.Count();
+                if (_paginationService.IsInvalidCurrentPage(CurrentPage, TotalPages))
+                    CurrentPage = 1;
+                Blogs = _paginationService.PaginateList(allBlogs, CurrentPage, PageSize);
+                
+                var cacheOptions = new MemoryCacheEntryOptions
+                {
+                    SlidingExpiration = TimeSpan.FromDays(1)
+                };
+
+                _cache.Set(CacheKeys.Blogs, allBlogs.ToList(), cacheOptions);
             }
 
             Blogs ??= new List<BlogItem>();

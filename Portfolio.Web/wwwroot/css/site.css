@@ -43,6 +43,7 @@ html {
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
@@ -63,10 +64,14 @@ html {
   min-height: 100%;
 }
 
+body {
+  font-family: 'ubuntu' !important;
+  height: 100vh;
+}
+
 main {
   height: 100%;
   margin: 0;
-  padding: 5rem 5rem 0 5rem;
 }
 
 .main-div {
@@ -193,9 +198,8 @@ h1 {
   width: 60%;
 }
 
-body {
-  font-family: 'ubuntu' !important;
-  height: 100vh;
+.main-padding {
+  padding: 5rem 5rem 0 5rem;
 }
 
 .blog-container {
@@ -325,6 +329,10 @@ figure.image {
     width: 240px;
   }
   
+  .main-div {
+    width: calc(100% - 240px);
+  }
+  
   #mobileNavWrapper {
     display: none;
   }
@@ -341,9 +349,27 @@ figure.image {
 }
 
 @media only screen and (min-width: 768px) {
+  /*tablets*/
+  .sidebar {
+    width: 260px;
+  }
+  
+  .main-div {
+    width: calc(100% - 260px);
+  }
+}
+
+@media only screen and (min-width: 992px) {
   /*desktop*/
   .sidebar {
     width: 300px;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+
+  figure.image>img {
+    width: 100%;
   }
 }
 

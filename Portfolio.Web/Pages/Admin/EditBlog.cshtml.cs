@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using Portfolio.Core.Interfaces.Services;
 using Portfolio.Core.ServiceModels;
 
@@ -14,10 +15,13 @@ namespace Portfolio.Web.Pages.Admin
         [BindProperty]
         public BlogItem Blog { get; set; }
 
-        public EditBlog(IBlogService blogService)
+        public EditBlog(IBlogService blogService, IConfiguration configuration)
         {
             _blogService = blogService;
+            FileUploadFunctionUrl = configuration.GetValue<string>("FileUploadFunction");
         }
+
+        public string FileUploadFunctionUrl { get; }
         
         public async Task OnGet(Guid id)
         {
