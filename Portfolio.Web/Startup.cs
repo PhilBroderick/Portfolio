@@ -39,7 +39,7 @@ namespace Portfolio
             services.AddScoped<IBlogService, BlogService>();
             services.AddScoped<IPaginationService, PaginationService>();
             services.AddScoped<IBlogRepository, BlogRepository>();
-            services.AddScoped<ICommandText, BlogCommandText>();
+            services.AddScoped<IBlogCommandText, BlogBlogCommandText>();
             services.Configure<RouteOptions>(options =>
             {
                 options.LowercaseUrls = true;
@@ -50,6 +50,8 @@ namespace Portfolio
             {
                 options.Conventions.AuthorizeFolder("/Admin");
             });
+
+            services.AddServerSideBlazor();
 
             services.AddAuthorization();
         }
@@ -77,7 +79,11 @@ namespace Portfolio
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapRazorPages(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+                endpoints.MapBlazorHub();
+            });
         }
     }
 }

@@ -94,6 +94,7 @@
     <main role="main">
         @Html.Partial("_StatusMessages")
         @RenderBody()
+        @(await Html.RenderComponentAsync<Subscribe>(RenderMode.ServerPrerendered))
     </main>
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

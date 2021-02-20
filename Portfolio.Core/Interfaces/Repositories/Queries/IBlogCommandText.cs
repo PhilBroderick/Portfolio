@@ -1,6 +1,6 @@
 ﻿namespace Portfolio.Core.Interfaces.Repositories.Queries
 {
-    public interface ICommandText
+    public interface IBlogCommandText
     {
         string GetAllBlogs { get; }
         string GetActiveBlogs { get; }

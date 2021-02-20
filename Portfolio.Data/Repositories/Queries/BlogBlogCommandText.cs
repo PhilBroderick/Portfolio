@@ -2,7 +2,7 @@
 
 namespace Portfolio.Data.Repositories.Queries
 {
-    public class BlogCommandText : ICommandText
+    public class BlogBlogCommandText : IBlogCommandText
     {
         public string GetAllBlogs => "SELECT * from Blog";
         public string GetActiveBlogs => "SELECT * from Blog where IsActive = 1";
