@@ -40,6 +40,9 @@ namespace Portfolio
             services.AddScoped<IPaginationService, PaginationService>();
             services.AddScoped<IBlogRepository, BlogRepository>();
             services.AddScoped<IBlogCommandText, BlogBlogCommandText>();
+            services.AddScoped<ISubscriberCommandText, SubscriberCommandText>();
+            services.AddScoped<ISubscriberRepository, SubscriberRepository>();
+            services.AddScoped<ISubscriberService, SubscriberService>();
             services.Configure<RouteOptions>(options =>
             {
                 options.LowercaseUrls = true;

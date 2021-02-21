@@ -94,12 +94,13 @@
     <main role="main">
         @Html.Partial("_StatusMessages")
         @RenderBody()
-        @(await Html.RenderComponentAsync<Subscribe>(RenderMode.ServerPrerendered))
+        <component type="typeof(Subscribe)" render-mode="Server"/>
     </main>
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="_framework/blazor.server.js"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>

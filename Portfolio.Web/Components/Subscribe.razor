@@ -1,0 +1,28 @@
+﻿@using Portfolio.Core.Interfaces.Services
+@using Portfolio.Core.ServiceModels
+@using Portfolio.Models
+@inject ISubscriberService SubscriberService;
+
+@* <input type="email" @bind="_email"/> *@
+@* <input type="submit" value="Subscribe" @onclick="SubscribeEmail"/> *@
+@* <button @onclick="SubscribeEmail">Subscribe</button> *@
+
+<EditForm Model="@_subscribeEmail" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    
+    <InputText id="email" @bind-Value="_subscribeEmail.Email"/>
+    
+    <button type="Submit">Subscribe</button>
+</EditForm>
+
+@code {
+    private SubscribeEmail _subscribeEmail = new();
+    private string _email;
+
+    private async Task HandleValidSubmit()
+    {
+        if(!string.IsNullOrWhiteSpace(_email))
+            await SubscriberService.AddNewSubscriber(new CreateSubscriberRequest(_email, true));
+    }
+}
