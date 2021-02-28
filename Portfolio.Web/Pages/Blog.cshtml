@@ -1,12 +1,58 @@
-﻿@page "{title}"
+﻿@page "{title?}"
 @model Portfolio.Pages.Blog
 
 @{
 }
-<div class="d-flex flex-column blog-container overflow-auto main-padding">
-    <h1>@Model.CurrentBlog.Title</h1>
-    <div>
-        <p>@Model.CurrentBlog.Created.ToLongDateString()</p>
-        @Html.Raw(Model.CurrentBlog.Content)
-    </div>
+
+<div class="d-flex flex-column blog-container main-padding @(string.IsNullOrWhiteSpace(Model.Title)? "" : "overflow-auto")">
+    
+    @if (string.IsNullOrWhiteSpace(Model.Title))
+    {
+        <h1>Blog Posts</h1>
+        @if (Model.Blogs.Any())
+        {
+            <div class="row">
+                @foreach (var blog in Model.Blogs)
+                {
+                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4 blog-container-item">
+                        <a asp-page="/blog" asp-route-title="@blog.Title.Replace(' ', '-')">
+                            <img src="@blog.ImageUrl" alt="@blog.Title"/>
+                            <div class="blog-header-text d-flex flex-column">
+                                <h3>@blog.Title</h3>
+                                <p>@blog.Created.Date.ToString("ddd, dd MMM yy")</p>
+                                <hr/>
+                                <p>@blog.Description</p>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+            @if (Model.TotalPages > 1)
+            {
+                <div class="d-flex justify-content-end">
+                    <ul class="pagination">
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                <a asp-page="/Index" asp-route-currentpage="@i" class="page-link">@i</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Uh oh! Looks like I haven't uploaded any blogs yet - please check back later!</p>
+        }
+    }
+    else
+    {
+        <h1>@Model.CurrentBlog.Title</h1>
+        <div>
+            <p>@Model.CurrentBlog.Created.ToLongDateString()</p>
+            @Html.Raw(Model.CurrentBlog.Content)
+        </div>
+    }
+    
 </div>

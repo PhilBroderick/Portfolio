@@ -1,4 +1,4 @@
 ﻿namespace Portfolio.Models.Content
 {
-    public record IndexContent(string Header, string Blurb, string ImageUrl);
+    public record IndexContent(string Header, string Blurb);
 }

@@ -13,12 +13,12 @@ namespace Portfolio.Data.Repositories
 {
     public class BlogRepository : IBlogRepository
     {
-        private readonly ICommandText _commandText;
+        private readonly IBlogCommandText _blogCommandText;
         private readonly string _connectionString;
 
-        public BlogRepository(IConfiguration config, ICommandText commandText)
+        public BlogRepository(IConfiguration config, IBlogCommandText blogCommandText)
         {
-            _commandText = commandText;
+            _blogCommandText = blogCommandText;
             _connectionString = config.GetConnectionString("DefaultConnection");
         }
 
@@ -26,7 +26,7 @@ namespace Portfolio.Data.Repositories
         {
             await using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
-            var query = await connection.QueryAsync<BlogItem>(_commandText.GetActiveBlogs);
+            var query = await connection.QueryAsync<BlogItem>(_blogCommandText.GetActiveBlogs);
             return query;
         }
 
@@ -34,7 +34,7 @@ namespace Portfolio.Data.Repositories
         {
             await using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
-            var query = await connection.QueryAsync<BlogItem>(_commandText.GetNActiveBlogs, new {numOfBlogs}, 
+            var query = await connection.QueryAsync<BlogItem>(_blogCommandText.GetNActiveBlogs, new {numOfBlogs}, 
                 commandType: CommandType.StoredProcedure);
             return query;
         }
@@ -43,14 +43,14 @@ namespace Portfolio.Data.Repositories
         {
             var newId = Guid.NewGuid();
             await using var connection = new SqlConnection(_connectionString);
-            await connection.ExecuteAsync(_commandText.CreateBlog,
+            await connection.ExecuteAsync(_blogCommandText.CreateBlog,
                 new {Id = newId, Title = title, Content = content, Description = description, ImageUrl = imageUrl});
         }
 
         public async Task<BlogItem> GetBlogByTitle(string title)
         {
             await using var connection = new SqlConnection(_connectionString);
-            var query = await connection.QueryFirstOrDefaultAsync<BlogItem>(_commandText.GetBlogByTitle,
+            var query = await connection.QueryFirstOrDefaultAsync<BlogItem>(_blogCommandText.GetBlogByTitle,
                 new {Title = title});
             return query;
         }
@@ -59,7 +59,7 @@ namespace Portfolio.Data.Repositories
         {
             await using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
-            var query = await connection.QueryAsync<BlogItem>(_commandText.GetAllBlogs);
+            var query = await connection.QueryAsync<BlogItem>(_blogCommandText.GetAllBlogs);
             return query;
         }
 
@@ -67,7 +67,7 @@ namespace Portfolio.Data.Repositories
         {
             await using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
-            var query = await connection.ExecuteAsync(_commandText.ToggleBlogActiveStats, new {id = blogId}, 
+            var query = await connection.ExecuteAsync(_blogCommandText.ToggleBlogActiveStats, new {id = blogId}, 
                 commandType: CommandType.StoredProcedure);
         }
 
@@ -75,7 +75,7 @@ namespace Portfolio.Data.Repositories
         {
             await using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
-            var query = await connection.QueryFirstOrDefaultAsync<BlogItem>(_commandText.GetBlogById, new { id });
+            var query = await connection.QueryFirstOrDefaultAsync<BlogItem>(_blogCommandText.GetBlogById, new { id });
             return query;
         }
 
@@ -83,7 +83,7 @@ namespace Portfolio.Data.Repositories
         {
             await using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
-            var query = await connection.ExecuteAsync(_commandText.UpdateBlog, 
+            var query = await connection.ExecuteAsync(_blogCommandText.UpdateBlog, 
                 new { Id = id, Title = title, Content = content, Description = description, ImageUrl = imageUrl });
         }
     }

@@ -1,0 +1,57 @@
+﻿@using Portfolio.Models
+@using System.Net.Http.Json
+@using System.Net
+@inject IJSRuntime Js;
+@inject HttpClient HttpClient;
+
+<div class="subscribe-form-container d-flex flex-column align-items-center">
+    <p>Subscribe to get notified when I release a new blog post!</p>
+    <EditForm EditContext="@_editContext" OnValidSubmit="@HandleValidSubmit" @onreset="HandleReset">
+        <DataAnnotationsValidator/>
+        <div class="form-row">
+            <div class="form-group">
+                <InputText id="email" @bind-Value="_model.Email" class="form-control"/>
+                <ValidationMessage For="@(() => _model.Email)" />
+            </div>
+        </div>
+        <input id="submit" type="submit" value="Subscribe" class="contact-button">
+    </EditForm>
+</div>
+
+
+@code {
+    private SubscribeEmail _model = new();
+    private EditContext _editContext;
+
+    protected override void OnInitialized()
+    {
+        _editContext = new EditContext(_model);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (!string.IsNullOrWhiteSpace(_model.Email))
+        {
+            var response = await HttpClient.PostAsJsonAsync("subscribe", _model.Email);
+            if (response.IsSuccessStatusCode)
+            {
+                _model = new SubscribeEmail();
+                await Js.InvokeVoidAsync("SuccessSubscribeMessage", "Thanks for subscribing!");
+            }
+            else if (response.StatusCode == HttpStatusCode.Conflict)
+            {
+                await Js.InvokeVoidAsync("InvalidateInput", "Email has already subscribed");
+            }
+            else
+            {
+                await Js.InvokeVoidAsync("InvalidateInput", "Unexpected error has occured");
+            }
+        }
+    }
+
+    private void HandleReset()
+    {
+        _model = new SubscribeEmail();
+        _editContext = new EditContext(_model);
+    }
+}
