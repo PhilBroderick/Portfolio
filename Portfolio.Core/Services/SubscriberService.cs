@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Portfolio.Core.Exceptions;
 using Portfolio.Core.Interfaces.Repositories;
 using Portfolio.Core.Interfaces.Services;
 using Portfolio.Core.ServiceModels;
@@ -27,7 +28,15 @@ namespace Portfolio.Core.Services
             if (string.IsNullOrWhiteSpace(email))
                 throw new ArgumentNullException(email);
 
-            await _subscriberRepository.AddNewSubscriber(email, subscribed);
+            try
+            {
+                await _subscriberRepository.AddNewSubscriber(email, subscribed);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("PRIMARY KEY"))
+                    throw new DuplicateEmailException();
+            }
         }
 
         public async Task UnsubscribeEmail(string email)

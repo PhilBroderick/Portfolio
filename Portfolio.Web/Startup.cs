@@ -1,3 +1,5 @@
+using System;
+using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -34,7 +36,11 @@ namespace Portfolio
                 })
                 .AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<PortfolioIdentityDbContext>();
-            
+
+            services.AddTransient(_ => new HttpClient
+            {
+                BaseAddress = new Uri(Configuration.GetValue<string>("ApiBaseUrl"))
+            });
             services.AddSingleton<IMessageService, EmailService>();
             services.AddScoped<IBlogService, BlogService>();
             services.AddScoped<IPaginationService, PaginationService>();
@@ -53,6 +59,8 @@ namespace Portfolio
             {
                 options.Conventions.AuthorizeFolder("/Admin");
             });
+
+            services.AddControllers();
 
             services.AddServerSideBlazor();
 
@@ -85,6 +93,7 @@ namespace Portfolio
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
                 endpoints.MapBlazorHub();
             });
         }
