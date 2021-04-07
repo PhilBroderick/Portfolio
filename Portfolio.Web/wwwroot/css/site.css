@@ -342,7 +342,7 @@ textarea.form-control.invalid {
 
 .blog-container-item>a>img {
   width: 100%;
-  height: 60%;
+  height: 240px;
 }
 
 .blog-header-text {
